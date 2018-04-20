@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from constants import *
 from processing import *
+from evaluation import *
 
 def parse_data(filename):
     """Reads the file and then extracts the ages and post columns from the dataset"""
@@ -9,12 +10,7 @@ def parse_data(filename):
     age, posts = df["Age"], df["Text"]
     return age, posts
 
-features = {
-    SENTENCE_LENGTH : True,
-    WORD_LENGTH : True
-}
-
 age, posts = parse_data(WINDOWS_SAMPLE_FILENAME)
-info = get_information(age, posts, features)
-info = process_features(info, features)
-print(info)
+info = get_information(age, posts)
+processed_info = process_features(info)
+print_nicely(processed_info)

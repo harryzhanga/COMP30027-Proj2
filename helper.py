@@ -1,24 +1,42 @@
-def sentence_data(post):
-    sentences = post.split(".")
-    return sum([len(sentence) for sentence in sentences]), len(sentences)
+from constants import *
 
-def add_sentence_length(age, post):
-    sentence_lengths, sentence_count = sentence_data(post)
-    age["sentence_length_sum"] = age.get("sentence_length_sum", 0) + sentence_lengths
-    age["sentence_count"] = age.get("sentence_count", 0) + sentence_count
+def post_length(curr, post):
+    curr[POST_LENGTH] = curr.get(POST_LENGTH, 0) + len(post)
 
-def process_sentence_length(age):
-    sentence_sum = age["sentence_length_sum"]
-    sentence_count = age["sentence_count"]
-    return sentence_sum/sentence_count
+def sentence_count(curr, post):
+    curr[SENTENCE_COUNT] = curr.get(SENTENCE_COUNT, 0) + len(post.split('.'))
 
-def add_word_length(age, post):
-    words = post.split(" ")
-    s = 0
-    for word in words:
-        s += len(word.strip())
-    age["word_sum"] = age.get("word_sum", 0) + s
-    age["word_count"] = age.get("word_count", 0) + len(words)
+def post_count(curr, post):
+    curr[POST_COUNT] = curr.get(POST_COUNT, 0) + 1
 
-def process_word_length(age):
-    return age["word_count"]/age["word_sum"]
+def word_count(curr, post):
+    curr[WORD_COUNT] = curr.get(WORD_COUNT, 0) + len(post.split())
+
+def word_length(curr, post):
+    length = len([x for x in post if x.isalpha()])
+    curr[WORD_LENGTH] = curr.get(WORD_LENGTH, 0) + length
+
+def avg_word_length(d, age):
+    d[AVG_WORD_LENGTH] = age[WORD_LENGTH]/age[WORD_COUNT]
+
+def avg_sentence_length(d, age):
+    d[AVG_SENTENCE_LENGTH] = age[POST_LENGTH]/age[SENTENCE_COUNT]
+
+def avg_post_length(d, age):
+    d[AVG_POST_LENGTH] = age[POST_LENGTH]/age[POST_COUNT]
+
+def processed_post_count(d, age):
+    d[PROCESSED_POST_COUNT] = age[POST_COUNT]
+
+FUNCTIONS = {
+    POST_LENGTH: post_length,
+    POST_COUNT: post_count,
+    SENTENCE_COUNT: sentence_count,
+    WORD_COUNT: word_count,
+    WORD_LENGTH: word_length,
+
+    AVG_WORD_LENGTH: avg_word_length,
+    AVG_SENTENCE_LENGTH: avg_sentence_length,
+    AVG_POST_LENGTH: avg_post_length,
+    PROCESSED_POST_COUNT: processed_post_count
+}
