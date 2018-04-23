@@ -1,14 +1,17 @@
 from helper import *
 from constants import *
-
+import pandas as pd
 
 
 def add_information(df):
     """Gathering information from the posts and putting them into a dictionary"""
-    for feature in INPUT_FEATURES:
-        func = INPUT_FEATURES[feature]
+    new = pd.DataFrame()
+    new["age"] = df["Age"]
+    new["post"] = df["text"]
+    for feature in TEXT_FEATURES:
+        func = TEXT_FEATURES[feature]
         calculated_attr = []
-        for index, row in df.iterrows():
-            calculated_attr.append(func(row))
-        df[feature] = calculated_attr
-    return df
+        for text in df["text"]:
+            calculated_attr.append(func(text))
+        new[feature] = calculated_attr
+    return new
