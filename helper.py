@@ -47,32 +47,6 @@ def capital_words_ratio(text):
             s += 1
     return s/len(text)
 
-def omg(splitted):
-    if "OMG" in splitted:
-        return 1
-    return 0
-
-def lol(splitted):
-    if "LOL" in splitted:
-        return 1
-    return 0
-
-def url_links(splitted):
-    return splitted.count("URLLINK")
-
-def fuck(splitted):
-    return splitted.count("FUCK")/max(len(splitted), MIN)
-
-def shit(splitted):
-    return splitted.count("SHIT")/max(len(splitted), MIN)
-
-def u(splitted):
-    return splitted.count("U")/max(len(splitted), MIN)
-
-def gonna(splitted):
-    return splitted.count("GONNA")/max(len(splitted), MIN)
-
-
 TEXT_FEATURES = {
     "capital_words_ratio" : capital_words_ratio,
     "single_i_ratio" : single_i_ratio,
@@ -85,13 +59,6 @@ TEXT_FEATURES = {
     "uncapitalised_first_letter": uncapitalised_first_letter
 }
 
-SPLIT_FEATURES = {
-    "lol_ratio": lol,
-    "omg_ratio": omg,
-    "url_links": url_links,
-    "fuck": fuck,
-    "shit": shit,
-    "u": u,
-    "gonna": gonna,
-
-}
+WORD_COUNT_LIST = ["lol", "gonna", "omg", "urllink", "fuck", "shit", "u", "work", "wanna", \
+                    "ur", "school", "ppl", "haha", "diva", "cuz", "cos", "anyways", ":)", ":(", "coffee"\
+                    "im", "stupid", "bitch", "like"]
