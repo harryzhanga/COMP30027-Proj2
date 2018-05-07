@@ -1,6 +1,7 @@
 from helper import *
 from constants import *
 import pandas as pd
+import nltk
 
 def clean(word):
     return word.replace(".", "").replace(",", "").replace("!", "").strip()
@@ -12,11 +13,13 @@ def add_information(df):
     for age, text in zip(df["Age"], df["text"]):
         new = {}
         new["age"] = age
-        #new["post"] = text
+        new["post"] = text
         for feature in TEXT_FEATURES:
             func = TEXT_FEATURES[feature]
             new[feature] = func(text)
-        splitted = [clean(word) for word in text.lower().split()]
+
+        #tokenizing takes a while
+        splitted = [clean(word) for word in nltk.word_tokenize(text.lower())]
         for word in WORD_COUNT_LIST:
             new[word+"_count"] = splitted.count(word)
         d[i] = new
