@@ -3,6 +3,21 @@ from constants import *
 import pandas as pd
 import nltk
 
+
+def n_grams(df, n):
+    """Returns a new df of ngrams"""
+    d = {}
+    i = 0
+    for text in df["text"]:
+        ngrams = {}
+        text = text.strip()
+        for i in range(len(text)-n+1):
+            gram = text[i:i+n]
+            ngrams[gram] = ngrams.get(gram, 0)+1
+        d[i] = ngrams
+        i += 1
+    return pd.DataFrame.from_dict(d, orient = "index")
+
 def clean(word):
     return word.replace(".", "").replace(",", "").replace("!", "").strip()
 
