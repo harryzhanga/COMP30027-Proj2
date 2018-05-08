@@ -1,4 +1,5 @@
 from constants import *
+import re
 
 def total_length(text):
     return len(text)
@@ -47,7 +48,25 @@ def capital_words_ratio(text):
             s += 1
     return s/len(text)
 
+def real_word_ratio(text):
+    def clean(word):
+        return re.sub("""[^a-z\ ]+""", '', word)
+
+    text = clean(text.lower())
+    text = text.split()
+    c = 0
+    for word in text:
+        if word in ENGLISH:
+            c += 1
+    # try:
+    #     print(text)
+    #     print(c/max(MIN, len(text)))
+    # except:
+    #     pass
+    return c/max(MIN, len(text))
+
 TEXT_FEATURES = {
+    'real_word_ratio' : real_word_ratio,
     "capital_words_ratio" : capital_words_ratio,
     "single_i_ratio" : single_i_ratio,
     "exclamation_ratio" : exclamation_ratio,
@@ -60,5 +79,6 @@ TEXT_FEATURES = {
 }
 
 WORD_COUNT_LIST = ["lol", "gonna", "omg", "urllink", "fuck", "shit", "u", "work", "wanna", \
-                    "ur", "school", "ppl", "haha", "diva", "cuz", "cos", "anyways", ":)", ":(", "coffee"\
-                    "im", "stupid", "bitch", "like"]
+                    "ur", "school", "ppl", "haha", "diva", "cuz", "cos", "anyways", ":)", ":(", "coffee", \
+                    "im", "stupid", "bitch", "like", "hate", "really", "well", "later", "kids", "what", \
+                    "no", "suck", "great", "good", "hell", "who", "the", "a"]

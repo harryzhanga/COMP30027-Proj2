@@ -2,6 +2,7 @@ import pandas as pd
 from sklearn.svm import SVC
 
 def svm(target, explanatory, test_target, test_explanatory):
+    """NOT FINISHED RIP"""
     regr = SVC()
     regr.fit(explanatory, target)
     model_pred = regr.predict(test_explanatory)

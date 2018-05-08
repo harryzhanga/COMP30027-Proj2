@@ -3,9 +3,10 @@ import pandas as pd
 from constants import *
 from processing import *
 from evaluation import *
-from models.linear_regression import *
-from models.logistic_regression import *
-from models.svm import *
+from linear_regression import *
+from logistic_regression import *
+from svm import *
+from k_nn import *
 from sklearn.model_selection import train_test_split
 
 
@@ -19,23 +20,22 @@ def get_features(df):
     data = add_information(df)
     return data
 
-def get_n_grams(df):
-    return n_grams(df, 2)
 
+def run_linear():
+    print("RUNNING LINEAR")
+    raw = parse_data(WINDOWS_SAMPLE_FILENAME)
+    data = get_features(raw)
+    #print(data.corr())
+    data.to_csv("test.csv")
+    train, test = train_test_split(data, test_size=0.1)
+    linear_regression(train, test, use_PCA = True)
 
-raw = parse_data(WINDOWS_SAMPLE_FILENAME)
-data = get_features(raw)
-data.to_csv("data/features_sample.csv")
-data2 = get_n_grams(raw)
-data2.to_csv("data/ngrams_sample.csv")
-#having a look at the correlation
-#print(data.corr())
-#data = pd.read_csv("data/test.csv")
+def run_k_nn():
+    print("RUNING KNN")
+    model_knn("data/3grams_sample.csv")
+    evaluate_k_nn("data/3grams_sample.csv", WINDOWS_SAMPLE_FILENAME)
 
-#separate into training and test data
-#train, test = train_test_split(data, test_size=0.1)
+#run_linear()
+#run_k_nn()
 
-#models
-#linear_regression(train, test)
 #logistic_regression(train, test)
-#svm(target_classes, explanatory, test_target_classes, test_explanatory)
