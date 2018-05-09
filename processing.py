@@ -51,8 +51,8 @@ def make_top_10(df):
 
 
 def clean(word):
-    return re.sub("""[^a-zA-Z\.\,\!\)\(\ \?\&]+""", '', word)
-    #return re.sub("""[^a-zA-Z\.\,\!\ \?]+""", '', word.lower())
+    #return re.sub("""[^a-zA-Z\.\,\!\)\(\ \?\&]+""", '', word)
+    return re.sub("""[^a-z\.\,\!\ \?]+""", '', word.lower())
 
 
 def n_grams(df, n):
@@ -115,3 +115,4 @@ def process_all(df):
         else:
             l.append((linear+knn)/2)
     return l
+    

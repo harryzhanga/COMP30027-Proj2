@@ -74,7 +74,6 @@ TEXT_FEATURES = {
     "sentence_ratio" : sentence_ratio,
     "word_count": word_count,
     "avg_word_length" : avg_word_length,
-    "star": star,
     "uncapitalised_first_letter": uncapitalised_first_letter
 }
 
