@@ -82,3 +82,6 @@ WORD_COUNT_LIST = ["lol", "gonna", "omg", "urllink", "fuck", "shit", "u", "work"
                     "ur", "school", "ppl", "haha", "diva", "cuz", "cos", "anyways", ":)", ":(", "coffee", \
                     "im", "stupid", "bitch", "like", "hate", "really", "well", "later", "kids", "what", \
                     "no", "suck", "great", "good", "hell", "who", "the", "a"]
+
+GIVEN_WORD_LIST = ['anyways', 'cuz', 'digest', 'diva', 'evermean', 'fox', 'gonna', 'greg', 'haha', 'jayel', 'kinda',\
+ 'levengals', 'literacy', 'lol', 'melissa', 'nan', 'nat', 'postcount', 'ppl', 'rick', 'school', 'shep', 'sherry', 'spanners', 'teri', 'u', 'ur', 'urllink', 'wanna', 'work']

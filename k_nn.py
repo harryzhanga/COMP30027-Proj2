@@ -5,23 +5,23 @@ from processing import *
 from constants import *
 import numpy as np
 
-def k_nn(train, test):
-    y_train = train[AGE].values
-    X_train = train.drop(columns = [AGE]).values
+def evaluate_k_nn(knn, test):
     y_test = test[AGE].values
     X_test = test.drop(columns = [AGE]).values
-    knn = neighbors.KNeighborsRegressor(n_neighbors=2)
-    knn.fit(X_train, y_train)
     model_pred = knn.predict(X_test)
     mse = mean_squared_error(model_pred, y_test)
     print("Mean squared error: {:.2f}".format(mse))
-    for pred, actual in zip(model_pred, y_test):
-        print(pred,actual)
+    # for pred, actual in zip(model_pred, y_test):
+    #     print(pred)
+    return model_pred
+    
+def model_knn(train):
+    y_train = train[AGE].values
+    X_train = train.drop(columns = [AGE]).values
+    knn = neighbors.KNeighborsRegressor(n_neighbors=2)
+    knn.fit(X_train, y_train)
+    return knn
 
-def model_knn(destination_path):
-    raw = pd.read_csv(WINDOWS_SAMPLE_FILENAME, names = ["User ID", "Gender", "Age", "Occupation", "Star Sign", "date", "text"]).head(10000)
-    data = n_grams(raw, N)
-    data.to_csv(destination_path)
 
 def reconcile(df1, df2, default_value = 0):
     """Gives two dfs the same columns"""
@@ -39,15 +39,3 @@ def normalise(df):
     X = X.div(df.sum(axis=1), axis=0)
     X[AGE] = y
     return X
-
-def evaluate_k_nn(training_filepath, testing_filepath):
-    train = pd.read_csv(training_filepath)
-    #dont want too many test cases ahahaha
-    test = pd.read_csv(testing_filepath, names = ["User ID", "Gender", "Age", "Occupation", "Star Sign", "date", "text"]).head(100)
-    test_df = convert_n_grams(test, N)
-    train, test_df = reconcile(train, test_df)
-    train = normalise(train)
-    test_df = normalise(test_df)
-    # train.to_csv("test.csv", index = False)
-    # test_df.to_csv("test2.csv", index = False)
-    k_nn(train, test_df)
